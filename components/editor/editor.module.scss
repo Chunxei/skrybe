@@ -40,7 +40,6 @@
     margin-bottom: 20px;
   }
 
-  .quill,
   &__content {
     //overflow-y: auto;
     height: calc(100% - 70px);
@@ -59,18 +58,6 @@
 
     &::placeholder {
       color: rgba(grey, 0.2);
-    }
-
-    .ql-editor {
-      padding: 0 !important;
-
-      .ql-blank {
-        padding: 0 !important;
-
-        &::before {
-          color: rgba(grey, 0.2) !important;
-        }
-      }
     }
   }
 }

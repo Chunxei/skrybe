@@ -17,3 +17,15 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.quill .ql-editor {
+  padding: 0 0 0 3px;
+
+  &.ql-blank {
+    &::before {
+      color: rgba(grey, 0.3) !important;
+      right: 0;
+      left: 0;
+    }
+  }
+}

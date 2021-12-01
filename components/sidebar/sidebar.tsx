@@ -11,10 +11,12 @@ const mock = [
       {
         title: 'the duality of man',
         content: 'lorem ipsum dolor sit amet and etcetera i no get time type',
+        lastEdited: new Date(Date.now() - 1000000),
       },
       {
         title: 'the silmarillion',
         content: 'Tolkein\'s most ambitious and immersive work to date',
+        lastEdited: new Date(Date.now() - 5000000),
       },
     ]
   },
@@ -25,6 +27,7 @@ const mock = [
       {
         title: 'shopping list',
         content: 'shawarma - N20,000',
+        lastEdited: new Date(Date.now() - 6000000),
       },
     ]
   },
@@ -46,8 +49,9 @@ function Sidebar(props: ISidebarProps): JSX.Element {
   return (
     <aside className={styles.sidebar}>
       { mock.map((folder, index) => (
-        <React.Fragment key={index}>
+        <React.Fragment key={folder.id}>
           <div
+            key={folder.id}
             className={styles.sidebar__folder}
             onClick={() => selectFolder(folder.id)}
           >

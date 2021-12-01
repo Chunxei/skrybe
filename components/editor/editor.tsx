@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import cn from 'classnames';
 import styles from './editor.module.scss';
 // import "react-quill/dist/quill.bubble.css";
 import { formatDistance } from 'date-fns'
@@ -29,6 +30,7 @@ const ReactQuill = dynamic(
 interface INoteData {
   title: string
   content: string
+  lastEdited: Date
 }
 
 interface ITimeData {
@@ -45,7 +47,8 @@ function Editor(props: IEditorProps): JSX.Element {
 
   const [noteData, setNoteData] = useState<INoteData>({
     title: '',
-    content: ''
+    content: '',
+    lastEdited: new Date(),
   });
 
   const [timeData, setTimeData] = useState<ITimeData>({
@@ -53,13 +56,11 @@ function Editor(props: IEditorProps): JSX.Element {
     formatted: formatDistance(new Date(), new Date(), { addSuffix: true })
   })
 
-  const updateTimeData = (): void => {
-    console.log('[UPDATING TIME]');
-
+  const updateTimeData = (lastEdited?: Date): void => {
     setTimeData((prevState: ITimeData) => ({
       ...prevState,
-      lastEdited: new Date(),
-      formatted: formatDistance(prevState.lastEdited, new Date(), { addSuffix: true }),
+      lastEdited: lastEdited || new Date(),
+      formatted: formatDistance(prevState.lastEdited, lastEdited|| new Date(), { addSuffix: true }),
     }));
   }
 
@@ -76,6 +77,13 @@ function Editor(props: IEditorProps): JSX.Element {
   useEffect(() => {
     if (selectedFile) {
       setNoteData(selectedFile);
+
+      setTimeData((prevState) => ({
+        ...prevState,
+        lastEdited: selectedFile.lastEdited,
+      }))
+
+      updateTimeData(selectedFile.lastEdited);
     }
   }, [selectedFile]);
 

@@ -11,12 +11,14 @@ import {useState} from "react";
 export interface IFile {
   title: string
   content: string
+  lastEdited: Date
 }
 
 const Home: NextPage = () => {
   const [selectedFile, setSelectedFile] = useState<IFile>({
     title: '',
     content: '',
+    lastEdited: new Date(),
   })
 
   const handleSelectFile = (file: IFile) => {
