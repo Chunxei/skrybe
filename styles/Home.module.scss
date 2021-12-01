@@ -1,0 +1,11 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+}
+
+.body {
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  height: calc(100% - 80px);
+}
