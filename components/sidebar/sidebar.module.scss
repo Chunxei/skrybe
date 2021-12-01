@@ -1,0 +1,46 @@
+@import "styles/debug";
+
+.sidebar {
+  width: 20%;
+  height: 100%;
+  background-color: rgba(grey, 0.05);
+  border-right: 1px solid rgba(grey, 0.3);
+  padding: 20px;
+
+  &__file,
+  &__folder {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 5px;
+    padding: 3px 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    //@include red-band;
+
+    &:hover {
+      background-color: rgba(grey, 0.3);
+    }
+
+    p {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      width: calc(100% - 25px);
+      font-size: 12px;
+      margin-left: 10px;
+      //@include green-band;
+    }
+
+    &__files {
+      //display: flex;
+      //justify-content: flex-start;
+      //align-items: center;
+      //border-radius: 5px;
+      //padding: 3px 10px;
+      //margin-bottom: 5px;
+      //cursor: pointer;
+      margin-left: 20px;
+    }
+  }
+}
