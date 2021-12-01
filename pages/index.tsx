@@ -6,15 +6,30 @@ import Sidebar from "../components/sidebar";
 import Header from '../components/header';
 import Editor from '../components/editor';
 import Footer from '../components/footer';
+import {useState} from "react";
+
+export interface IFile {
+  title: string
+  content: string
+}
 
 const Home: NextPage = () => {
+  const [selectedFile, setSelectedFile] = useState<IFile>({
+    title: '',
+    content: '',
+  })
+
+  const handleSelectFile = (file: IFile) => {
+    setSelectedFile(file);
+  }
+
   return (
     <div className={styles.container}>
       <Header />
 
       <div className={styles.body}>
-        <Sidebar />
-        <Editor />
+        <Sidebar onSelectFile={handleSelectFile} />
+        <Editor selectedFile={selectedFile} />
       </div>
 
       <Footer />

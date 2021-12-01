@@ -40,25 +40,37 @@
     margin-bottom: 20px;
   }
 
+  .quill,
   &__content {
-    overflow-y: auto;
-    height: calc(100% - 100px);
+    //overflow-y: auto;
+    height: calc(100% - 70px);
     background: none;
     border: none;
     //border: 1px solid rgba(grey, 0.1);
     border-radius: 5px;
     color: grey;
     //font-weight: 500;
-    font-family: Arial, sans-serif;
-    padding: 10px 2px;
+    //font-family: Arial, sans-serif;
+    //padding: 10px 2px;
 
     &:focus {
       outline: 0;
-      outline-color: rgba(green, 0.1);
     }
 
     &::placeholder {
       color: rgba(grey, 0.2);
+    }
+
+    .ql-editor {
+      padding: 0 !important;
+
+      .ql-blank {
+        padding: 0 !important;
+
+        &::before {
+          color: rgba(grey, 0.2) !important;
+        }
+      }
     }
   }
 }

@@ -1,10 +1,91 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './sidebar.module.scss';
+import Image from "next/image";
+import { BiCaretDown, BiCaretRight } from "react-icons/bi";
 
-function Sidebar(): JSX.Element {
+const mock = [
+  {
+    name: 'stories',
+    id: 'stories',
+    files: [
+      {
+        title: 'the duality of man',
+        content: 'lorem ipsum dolor sit amet and etcetera i no get time type',
+      },
+      {
+        title: 'the silmarillion',
+        content: 'Tolkein\'s most ambitious and immersive work to date',
+      },
+    ]
+  },
+  {
+    name: 'todos',
+    id: 'todos',
+    files: [
+      {
+        title: 'shopping list',
+        content: 'shawarma - N20,000',
+      },
+    ]
+  },
+]
+
+interface ISidebarProps {
+  onSelectFile: (...args: any[]) => void
+}
+
+function Sidebar(props: ISidebarProps): JSX.Element {
+  const { onSelectFile } = props;
+
+  const [openFolderId, setOpenFolderId] = useState<string>('');
+
+  const selectFolder = (folderId: string): void => {
+    setOpenFolderId((prevState) => folderId === prevState ? '' : folderId);
+  };
+
   return (
     <aside className={styles.sidebar}>
+      { mock.map((folder, index) => (
+        <React.Fragment key={index}>
+          <div
+            className={styles.sidebar__folder}
+            onClick={() => selectFolder(folder.id)}
+          >
+            { openFolderId === folder.id ? (
+              <BiCaretDown />
+            ) : (
+              <BiCaretRight />
+            )}
+            <Image
+              src="/svgs/folder.svg"
+              width="15"
+              height="15"
+              alt=""
+            />
+            <p>{ folder.name }</p>
+          </div>
 
+          { openFolderId === folder.id && (
+            <div className={styles.sidebar__folder__files}>
+              { folder.files.map((file) => (
+                <div
+                  key={index}
+                  className={styles.sidebar__file}
+                  onClick={() => onSelectFile(file)}
+                >
+                  <Image
+                    src="/svgs/file.svg"
+                    width="15"
+                    height="15"
+                    alt=""
+                  />
+                  <p>{ file.title }</p>
+                </div>
+              )) }
+            </div>
+          )}
+        </React.Fragment>
+      )) }
     </aside>
   );
 }
