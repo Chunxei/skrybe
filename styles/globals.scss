@@ -18,14 +18,32 @@ a {
   box-sizing: border-box;
 }
 
-.quill .ql-editor {
-  padding: 0 0 0 3px;
+.quill {
+  border: none;
 
-  &.ql-blank {
-    &::before {
-      color: rgba(grey, 0.3) !important;
-      right: 0;
-      left: 0;
+  //.ql-toolbar {
+  //  border: 1px solid rgba(grey, 0.2) !important;
+  //}
+  //
+  //.ql-container {
+  //  border: 1px solid rgba(grey, 0.2) !important;
+  //  border-top: none !important;
+  //}
+
+  .ql-editor {
+    padding: 0 0 0 3px;
+
+    &.ql-blank {
+      &::before {
+        color: rgba(grey, 0.3) !important;
+        right: 0;
+        left: 0;
+      }
+    }
+
+    a {
+      color: cadetblue;
+      cursor: pointer;
     }
   }
 }

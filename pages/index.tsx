@@ -27,6 +27,9 @@ const Home: NextPage = () => {
 
   return (
     <div className={styles.container}>
+      <Head>
+        <title>Skrybe</title>
+      </Head>
       <Header />
 
       <div className={styles.body}>
