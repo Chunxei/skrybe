@@ -7,25 +7,42 @@ import {IFile} from "../../pages";
 // import ReactQuill from "react-quill";
 import dynamic from "next/dynamic";
 
+const ReactQuill = dynamic(
+  () => import('react-quill'),
+  { ssr: false }
+);
+
 const editorModules = {
   toolbar: [
+    [{ 'header': [false, 1, 2, 3] }],
     ["bold", "italic", "underline", "strike"],
-    [{ list: "ordered" }, { list: "bullet" }, { indent: "-1" }, { indent: "+1" }],
-    ["link"],
+    [{ 'color': [] }, { 'background': [] }],
+    ['blockquote', 'code-block'],
+    [{ 'list': 'check' }, { list: "ordered" }, { list: "bullet" }, { indent: "-1" }, { indent: "+1" }],
+    ["link", "image"],
+    ['clean'],
+    [
+      {
+        handlers: {
+          // handlers object will be merged with default handlers object
+          'link': function(value: any) {
+            console.log('[VALUE]:', value);
+          }
+        }
+      }
+    ]
   ],
 };
 
 const editorFormats = [
   "header",
   "bold", "italic", "underline", "strike",
-  "list", "bullet", "indent",
-  "link",
+  "blockquote", "code-block",
+  "color", "background",
+  "list", "check", "bullet", "indent",
+  "link", "image",
+  "clean",
 ];
-
-const ReactQuill = dynamic(
-  () => import('react-quill'),
-  { ssr: false }
-);
 
 interface INoteData {
   title: string
@@ -74,6 +91,15 @@ function Editor(props: IEditorProps): JSX.Element {
     updateTimeData();
   }
 
+  const handleEditorChange = (value: string) => {
+    setNoteData((prevState) => ({
+      ...prevState,
+      content: value
+    }));
+
+    updateTimeData();
+  }
+
   useEffect(() => {
     if (selectedFile) {
       setNoteData(selectedFile);
@@ -118,26 +144,10 @@ function Editor(props: IEditorProps): JSX.Element {
         theme="bubble"
         placeholder="Spill your thoughts..."
         value={noteData.content}
-        onChange={(value) => {
-          setNoteData((prevState) => ({
-            ...prevState,
-            content: value
-          }))
-        }}
+        onChange={handleEditorChange}
         modules={editorModules}
         formats={editorFormats}
       />
-
-      {/*<textarea*/}
-      {/*  name="content"*/}
-      {/*  id="note-content"*/}
-      {/*  className={styles.editor__content}*/}
-      {/*  cols={30}*/}
-      {/*  rows={10}*/}
-      {/*  value={noteData.content}*/}
-      {/*  onChange={handleInput}*/}
-      {/*  placeholder="Spill yout thoughts..."*/}
-      {/*/>*/}
     </main>
   );
 }
